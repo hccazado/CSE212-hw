@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 public static class Arrays
 {
     /// <summary>
@@ -8,12 +10,21 @@ public static class Arrays
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     public static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        /*
+        creating an static array of doubles to hold the multiples of the number.
+        An static array is used because the length is already known from the parameter 'length'.
+        */
+        double[] multiples = new double[length]; 
+        
+        //creating a loop that will iterate the parameter length as the number of times to find the multiples.
+        for(int i = 0; i < length; i++)
+        {
+            //calculating the multiples of the number and storing them in the array.
+            multiples[i] = number * (i+1); 
+        }
 
-        return []; // replace this return statement with your own
+        //returning the array of multiples.
+        return multiples;
     }
 
     /// <summary>
@@ -25,9 +36,21 @@ public static class Arrays
     /// </summary>
     public static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        //creating a temporary list to hold the date that will not rotate.
+        List<int> preserve = new List<int>();
+        //creating a temporary list to hold the data that will rotate.
+        List<int> rotate = new List<int>();
+        
+        //copying elements that shall not rotate to a temporary list
+        preserve = data.GetRange(0, data.Count - amount);
+        //removing previous elements from the list
+        data.RemoveRange(0, data.Count - amount);
+        //copying elements that shall rotate to a secondary temp list
+        rotate = data.GetRange(0, data.Count);
+        //clearing previous elements from data list
+        data.RemoveRange(0, data.Count);
+        //adding the elements to the list in the correct order
+        data.AddRange(rotate);
+        data.AddRange(preserve);
     }
 }
