@@ -36,6 +36,17 @@ public static class Arrays
     /// </summary>
     public static void RotateListRight(List<int> data, int amount)
     {
+        /*
+        To solve this problem, a couple of temporary list will be created. 
+        One list should receive the content from original list from index 0, until the amount of 
+        the original list count minus the amount received as parameter. The first elements from the 
+        original list should be removed.
+        The other elements from the original list, those that should rotate right, should be added to the secondary temporary list.
+        In order to achieve that, copy from the elements from index 0 until originalList.Count. 
+        Finally, add the elements from the temporary lists into the original array, which by now should be cleared, in the following order:
+        Insert rotate list elements
+        Insert preserve list elements.
+        */
         //creating a temporary list to hold the date that will not rotate.
         List<int> preserve = new List<int>();
         //creating a temporary list to hold the data that will rotate.
