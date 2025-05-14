@@ -19,7 +19,7 @@ public class PersonQueue
 
     public Person Dequeue()
     {
-        var person = _queue[0]; //Them item is removed from the list's first position
+        var person = _queue[0]; //The item is removed from the list's first position
         _queue.RemoveAt(0);
         return person;
     }
