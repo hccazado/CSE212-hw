@@ -7,6 +7,7 @@
 /// less than they will stay in the queue forever.  If a person is out of turns then they will 
 /// not be added back into the queue.
 /// </summary>
+using System.Diagnostics;
 public class TakingTurnsQueue
 {
     private readonly PersonQueue _people = new();
@@ -39,13 +40,18 @@ public class TakingTurnsQueue
         }
         else
         {
-            Person person = _people.Dequeue();
-            if (person.Turns > 1)
+            Person person = _people.Dequeue(); //A person is dequeued
+            if (person.Turns > 0) //cheching for 1 or more turns left
             {
-                person.Turns -= 1;
+                if(person.Turns == 1){ //person with 1 turn left will be returned and not re-enqueued
+                    return person;
+                }
+                person.Turns -= 1; //decreasing turns counter
                 _people.Enqueue(person);
             }
-
+            else{ //A person with 0 or <0 Turns should be kept forever in the queue.
+                _people.Enqueue(person);
+            }
             return person;
         }
     }

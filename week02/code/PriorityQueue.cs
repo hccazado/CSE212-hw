@@ -24,14 +24,18 @@
 
         // Find the index of the item with the highest priority to remove
         var highPriorityIndex = 0;
-        for (int index = 1; index < _queue.Count - 1; index++)
+        //incorrect implementation on loop condition. List index should start at 0. 
+        //Also, the index should iterate the entire list.
+        for (int index = 0; index < _queue.Count ; index++)
         {
-            if (_queue[index].Priority >= _queue[highPriorityIndex].Priority)
+            if (_queue[index].Priority > _queue[highPriorityIndex].Priority)
                 highPriorityIndex = index;
         }
 
         // Remove and return the item with the highest priority
         var value = _queue[highPriorityIndex].Value;
+        //removing the actua item from the list
+        _queue.RemoveAt(highPriorityIndex); 
         return value;
     }
 
