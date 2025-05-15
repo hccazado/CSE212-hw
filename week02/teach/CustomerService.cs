@@ -5,30 +5,57 @@
 public class CustomerService {
     public static void Run() {
         // Example code to see what's in the customer service queue:
-        // var cs = new CustomerService(10);
-        // Console.WriteLine(cs);
+        var cs = new CustomerService(3);
+        Console.WriteLine(cs);
 
         // Test Cases
-
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: A Queue with max_size of 3. Shouldn't accept more than 3 customers in the queue
+        // Expected Result: When the user tries to add an exceding customer, "Maximum Number of Customers in Queue" 
+        // message should be returned.
+        // Defect(s) Found: AddNewCustomer function had a logic validation and was permitting the user to add one exciding customer
         Console.WriteLine("Test 1");
-
-        // Defect(s) Found: 
-
+        Console.WriteLine("Adding more than 3 users");
+        
         Console.WriteLine("=================");
-
+        //for(int i=1; i< 6; i++){
+        //    Console.WriteLine("Adding Customer: "+i);
+        //    cs.AddNewCustomer();
+        //}
+        Console.WriteLine(cs); 
+        Console.WriteLine("-----------------");
+        
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: creating customer service with invalid value.
+        // Expected Result: A customer service with default size should be created.
+        // Defect(s) Found: No defects were found
         Console.WriteLine("Test 2");
-
-        // Defect(s) Found: 
+        Console.WriteLine("Creating a queue with invalid value");
+        var cs2 = new CustomerService(0);
+        Console.WriteLine(cs2);
+        Console.WriteLine("-----------------");
 
         Console.WriteLine("=================");
 
-        // Add more Test Cases As Needed Below
+        // Test 3
+        // Scenario: creating customer service with a capacity of 2, and trying to dequeue them.
+        // Expected Result: The customer in queues front should be returned, when the queue is empty an error message is expected.
+        // Defect(s) Found: ServeCustomer had two problems: 
+        //                - Was removing (dequeuing) the customer before storing it in a variable and exhibing it
+        //                - Wasn't treating an empty queue scenario, throwing an outofbounds exception.
+        Console.WriteLine("Test 3");
+        var cs3 = new CustomerService(2);
+        cs3.AddNewCustomer();
+        cs3.AddNewCustomer();
+        cs3.AddNewCustomer(); //Testing queue limit size.
+
+        //poping customers from the queue
+        cs3.ServeCustomer();
+        cs3.ServeCustomer();
+        cs3.ServeCustomer(); //By now an error message is expected
+
+        Console.WriteLine(cs3);
+        Console.WriteLine("-----------------");
     }
 
     private readonly List<Customer> _queue = new();
@@ -67,7 +94,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count >= _maxSize) { //previous logic permited the queue to store one more customer than the specified
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -88,9 +115,20 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
-        var customer = _queue[0];
-        Console.WriteLine(customer);
+        try{
+            if(_queue.Count == 0){
+                Console.WriteLine("No customers in the queue.");
+            }
+            else{
+            var customer = _queue[0];
+            Console.WriteLine(customer);
+            _queue.RemoveAt(0);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 
     /// <summary>
