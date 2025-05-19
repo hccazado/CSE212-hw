@@ -32,7 +32,14 @@ public class Maze
     /// </summary>
     public void MoveLeft()
     {
-        // FILL IN CODE
+        var directions = _mazeMap[(_currX, _currY)]; //gets the available movements from the current coordinate
+        if (directions[0] == false) { //verify if the moviment is posible
+            throw new InvalidOperationException("Can't go that way!");
+        }
+        else
+        {
+            _currX--; //adjust the current X location
+        }
     }
 
     /// <summary>
@@ -41,7 +48,14 @@ public class Maze
     /// </summary>
     public void MoveRight()
     {
-        // FILL IN CODE
+        var directions = _mazeMap[(_currX, _currY)]; //gets the available movements from the current coordinate
+        if (directions[1] == false) { //verify if the moviment is posible
+            throw new InvalidOperationException("Can't go that way!");
+        }
+        else
+        {
+            _currX++; //adjust the current X location
+        }
     }
 
     /// <summary>
@@ -50,7 +64,14 @@ public class Maze
     /// </summary>
     public void MoveUp()
     {
-        // FILL IN CODE
+        var directions = _mazeMap[(_currX, _currY)]; //gets the available movements from the current coordinate
+        if (directions[2] == false) { //verify if the moviment is posible
+            throw new InvalidOperationException("Can't go that way!");
+        }
+        else
+        {
+            _currY--; //adjust the current Y location
+        }
     }
 
     /// <summary>
@@ -59,7 +80,14 @@ public class Maze
     /// </summary>
     public void MoveDown()
     {
-        // FILL IN CODE
+        var directions = _mazeMap[(_currX, _currY)]; //gets the available movements from the current coordinate
+        if (directions[3] == false) { //verify if the moviment is posible
+            throw new InvalidOperationException("Can't go that way!");
+        }
+        else
+        {
+            _currY++; //adjust the current Y location
+        }
     }
 
     public string GetStatus()
