@@ -6,8 +6,12 @@ public class Translator
         englishToGerman.AddWord("House", "Haus");
         englishToGerman.AddWord("Car", "Auto");
         englishToGerman.AddWord("Plane", "Flugzeug");
+        englishToGerman.AddWord("Airport", "Flüghafen");
+        englishToGerman.AddWord("", "Nein");
+        Console.WriteLine(englishToGerman.Translate("House")); // Auto
         Console.WriteLine(englishToGerman.Translate("Car")); // Auto
         Console.WriteLine(englishToGerman.Translate("Plane")); // Flugzeug
+        Console.WriteLine(englishToGerman.Translate("Airport")); // Flugzeug
         Console.WriteLine(englishToGerman.Translate("Train")); // ???
     }
 
@@ -24,7 +28,14 @@ public class Translator
     /// <returns>fixed array of divisors</returns>
     public void AddWord(string fromWord, string toWord)
     {
-        // ADD YOUR CODE HERE
+        if (!fromWord.Trim().Equals(string.Empty) && !toWord.Trim().Equals(string.Empty))
+        {
+            _words.Add(fromWord, toWord);
+        }
+        else
+        {
+            Console.WriteLine("You must provide English, and German words.");
+        } 
     }
 
     /// <summary>
@@ -34,7 +45,10 @@ public class Translator
     /// <returns>The translated word or "???" if no translation is available</returns>
     public string Translate(string fromWord)
     {
-        // ADD YOUR CODE HERE
-        return "";
+        if (_words.ContainsKey(fromWord))
+        {
+            return _words[fromWord];
+        }
+        return "???";
     }
 }
