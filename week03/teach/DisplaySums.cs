@@ -27,7 +27,20 @@
     /// in the list.
     /// </summary>
     /// <param name="numbers">array of integers</param>
-    private static void DisplaySumPairs(int[] numbers) {
+    private static void DisplaySumPairs(int[] numbers)
+    {
         // TODO Problem 2 - This should print pairs of numbers in the given array
+        HashSet<int> numbersSet = new HashSet<int>(numbers); //converting the input array numbers into a Set. Would give O(1) to access, and exclude repeated numbers.
+        HashSet<int> displayedNumbers = new HashSet<int>(); //This array will keep track of displayed numbers to avoid duplicate exhibits
+        foreach (var num in numbersSet)
+        {
+            int x = 10 - num; //getting the difference between num and 10
+            if (numbersSet.Contains(x) && num != x && !displayedNumbers.Contains(x) && !displayedNumbers.Contains(num)) //checking if the numberSet contains the difference. Skiping the same number since all elements in a set are unique. Finally, verifying that the current number and difference were not displayed yet
+            {
+                displayedNumbers.Add(num);
+                displayedNumbers.Add(x);
+                Console.WriteLine($"{x} {num}");
+            }
+        }
     }
 }
